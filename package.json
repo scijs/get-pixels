@@ -1,0 +1,43 @@
+{
+  "name": "get-pixels",
+  "version": "0.0.0",
+  "description": "Reads the pixels of an image as an ndarray",
+  "main": "node-pixels.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "ndarray": "~0.2.1",
+    "ndarray-ops": "~0.1.3",
+    "pngparse": "~1.1.4"
+  },
+  "devDependencies": {
+    "tap": "~0.4.2"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/get-pixels.git"
+  },
+  "keywords": [
+    "ndarray",
+    "pixel",
+    "get",
+    "read",
+    "pixel",
+    "image",
+    "png",
+    "jpeg",
+    "parse",
+    "dom",
+    "node",
+    "browserify"
+  ],
+  "browser": "dom-pixels.js",
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "380bbda330666e4a4066c48ef5a42770d13bcd5c"
+}
