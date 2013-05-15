@@ -12,9 +12,7 @@ module.exports = function getPixels(url, cb) {
     var context = canvas.getContext("2d")
     context.drawImage(img)
     var pixels = context.getImageData(0, 0, img.width, img.height)
-    var buffer = ndarray.zeros([img.width, img.height, 4], "uint8", [1, 2, 0])
-    ops.assign(buffer, ndarray.ctor(pixels.data, [img.width, img.height, 4], [4, img.width, 1], 0))
-    cb(null, buffer)
+    cb(null, ndarray.ctor(new Uint8Array(pixels.data), [img.width, img.height, 4], [4, 4*img.width, 1], 0))
   }
   img.onerror = function(err) {
     cb(err)
