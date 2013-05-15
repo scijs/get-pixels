@@ -3,6 +3,8 @@
 var ndarray = require("ndarray")
 var path = require("path")
 var pngparse = require("pngparse")
+var ppm = require("ppm")
+var pack = require("ndarray-pack")
 var fs = require("fs")
 
 function handlePNG(url, cb) {
@@ -16,11 +18,21 @@ function handlePNG(url, cb) {
         cb(err)
         return
       }
-      cb(null, ndarray.ctor(new Uint8Array(img_data.data),
+      cb(undefined, ndarray.ctor(new Uint8Array(img_data.data),
         [img_data.width|0, img_data.height|0, 4],
         [4, 4*img_data.width|0, 1],
         0))
     })
+  })
+}
+
+function handlePPM(url, cb) {
+  ppm.parse(fs.createReadStream(url), function(err, pixels) {
+    if(err) {
+      cb(err)
+      return
+    }
+    cb(undefined, pack(pixels, "uint8").transpose(1, 0, 2))
   })
 }
 
@@ -29,6 +41,10 @@ module.exports = function getPixels(url, cb) {
   switch(ext.toUpperCase()) {
     case ".PNG":
       handlePNG(url, cb)
+    break
+    
+    case ".PPM":
+      handlePPM(url, cb)
     break
     
     default:

@@ -55,3 +55,13 @@ test("get-pixels-png", function(t) {
     t.end()
   })
 })
+
+test("get-pixels-ppm", function(t) {
+  getPixels(path.join(__dirname, "test_pattern.ppm"), function(err, pixels) {
+    console.log(pixels.shape)
+    test_image(t, pixels)
+    t.end()
+  })
+})
+
+
