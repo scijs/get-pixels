@@ -18,7 +18,7 @@ function handlePNG(url, cb) {
       }
       cb(null, ndarray.ctor(new Uint8Array(img_data.data),
         [img_data.width|0, img_data.height|0, 4],
-        [4, img_data.width|0, 1],
+        [4, 4*img_data.width|0, 1],
         0))
     })
   })
