@@ -30,6 +30,8 @@ Reads all the pixels from url into an ndarray.
 * `url` is the path to the file
 * `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
 
+**Returns** An ndarray of pixels in raster order having shape equal to `[rows, columns, channels]`.
+
 Credits
 =======
 (c) 2013 Mikola Lysenko. MIT License

@@ -19,8 +19,8 @@ function handlePNG(url, cb) {
         return
       }
       cb(undefined, ndarray.ctor(new Uint8Array(img_data.data),
-        [img_data.width|0, img_data.height|0, 4],
-        [4, 4*img_data.width|0, 1],
+        [img_data.height|0, img_data.width|0, 4],
+        [4*img_data.width|0, 4, 1],
         0))
     })
   })
@@ -32,7 +32,7 @@ function handlePPM(url, cb) {
       cb(err)
       return
     }
-    cb(undefined, pack(pixels, "uint8").transpose(1, 0, 2))
+    cb(undefined, pack(pixels, "uint8"))
   })
 }
 
