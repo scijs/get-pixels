@@ -1,6 +1,6 @@
 {
   "name": "get-pixels",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reads the pixels of an image as an ndarray",
   "main": "node-pixels.js",
   "directories": {
@@ -10,7 +10,7 @@
     "ndarray": "~1.0.0",
     "pngparse": "~1.1.4",
     "ppm": "0.0.0",
-    "ndarray-pack": "0.0.1"
+    "ndarray-pack": "1.0.0"
   },
   "devDependencies": {
     "tap": "~0.4.2"
