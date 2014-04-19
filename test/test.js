@@ -1,8 +1,10 @@
 "use strict"
-var test = require("tap").test
+var test = require("tape")
 
 var path = require("path")
-var getPixels = require("../node-pixels.js")
+var getPixels = typeof window === "undefined" ?
+  require("../node-pixels.js") :
+  require("../dom-pixels.js")
 
 function test_image(t, img) {
   img = img.transpose(1, 0, 2)

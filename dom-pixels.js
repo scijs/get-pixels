@@ -25,10 +25,11 @@ function defaultImage(url, cb) {
 function handleGIF(url, cb) {
   var xhr = new XMLHttpRequest()
   xhr.responseType = "arraybuffer"
+  xhr.overrideMimeType("application/binary")
   xhr.onerror = function(err) {
     cb(err)
   }
-  xhr.onreadystatechange = function() {
+  xhr.onload = function() {
     if(xhr.readyState !== 4) {
       return
     }
@@ -68,13 +69,14 @@ function handleGIF(url, cb) {
       cb(undefined, result)
     }
   }
-  xhr.open("get", url, true)
+  xhr.open("GET", url, true)
+  xhr.send()
 }
 
 module.exports = function getPixels(url, cb) {
   var ext = path.extname(url)
   switch(ext.toUpperCase()) {
-    case "GIF":
+    case ".GIF":
       handleGIF(url, cb)
     break
     default:

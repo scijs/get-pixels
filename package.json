@@ -13,13 +13,15 @@
     "ndarray-pack": "^1.1.1",
     "jpeg-js": "0.0.3",
     "omggif": "^1.0.5",
-    "node-bitmap": "0.0.1"
+    "node-bitmap": "0.0.1",
+    "through": "^2.3.4"
   },
   "devDependencies": {
-    "tap": "~0.4.2"
+    "tape": "^2.12.3"
   },
   "scripts": {
-    "test": "tap test/*.js"
+    "test": "tap test/*.js",
+    "test-browser": "beefy --open --cwd test test.js"
   },
   "repository": {
     "type": "git",
