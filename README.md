@@ -1,8 +1,8 @@
 get-pixels
 ==========
-Given a URL/path, grab all the pixels in an image and return the result as an [ndarray](https://github.com/mikolalysenko/ndarray).  Works both in browserify and in node.js.
+Given a URL/path, grab all the pixels in an image and return the result as an [ndarray](https://github.com/mikolalysenko/ndarray).  Written in 100% JavaScript, works both in browserify and in node.js and has no external native dependencies.
 
-**Note** The following file formats are supported:
+Currently the following file formats are supported:
 
 * `PNG`
 * `PPM`

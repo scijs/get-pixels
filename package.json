@@ -12,7 +12,8 @@
     "ppm": "0.0.0",
     "ndarray-pack": "^1.1.1",
     "jpeg-js": "0.0.3",
-    "omggif": "^1.0.5"
+    "omggif": "^1.0.5",
+    "node-bitmap": "0.0.1"
   },
   "devDependencies": {
     "tap": "~0.4.2"

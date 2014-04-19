@@ -89,7 +89,6 @@ test("get-pixels-jpg", function(t) {
 
 test("get-pixels-gif", function(t) {
   getPixels(path.join(__dirname, "test_pattern.gif"), function(err, pixels) {
-    console.log(pixels)
     if(err) {
       t.error(err, "failed to parse gif")
       t.end()
@@ -100,4 +99,14 @@ test("get-pixels-gif", function(t) {
   })
 })
 
-
+test("get-pixels-bmp", function(t) {
+  getPixels(path.join(__dirname, "test_pattern.bmp"), function(err, pixels) {
+    if(err) {
+      t.error(err, "failed to parse bmp")
+      t.end()
+      return
+    }
+    test_image(t, pixels)
+    t.end()
+  })
+})
