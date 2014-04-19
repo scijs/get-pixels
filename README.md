@@ -2,7 +2,12 @@ get-pixels
 ==========
 Given a URL/path, grab all the pixels in an image and return the result as an [ndarray](https://github.com/mikolalysenko/ndarray).  Works both in browserify and in node.js.
 
-**Note** On the node side, currently only supports PNG and PPM.  Patches welcome!!!
+**Note** The following file formats are supported:
+
+* `PNG`
+* `PPM`
+* `JPEG`
+* `GIF`
 
 Example
 =======
@@ -15,7 +20,7 @@ getPixels("lena.png", function(err, pixels) {
     console.log("Bad image path")
     return
   }
-  console.log("got pixels", pixels.shape)
+  console.log("got pixels", pixels.shape.slice())
 })
 ```
 
@@ -31,6 +36,8 @@ Reads all the pixels from url into an ndarray.
 * `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
 
 **Returns** An ndarray of pixels in raster order having shape equal to `[rows, columns, channels]`.
+
+**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, height, width, 4]`, where each frame is a slice of the final array.
 
 Credits
 =======

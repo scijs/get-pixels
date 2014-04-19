@@ -52,6 +52,11 @@ test("get-pixels", function(t) {
 
 test("get-pixels-png", function(t) {
   getPixels(path.join(__dirname, "test_pattern.png"), function(err, pixels) {
+    if(err) {
+      t.error(err, "failed to parse png")
+      t.end()
+      return
+    }
     test_image(t, pixels)
     t.end()
   })
@@ -59,7 +64,37 @@ test("get-pixels-png", function(t) {
 
 test("get-pixels-ppm", function(t) {
   getPixels(path.join(__dirname, "test_pattern.ppm"), function(err, pixels) {
-    console.log(pixels.shape)
+    if(err) {
+      t.error(err, "failed to parse ppm")
+      t.end()
+      return
+    }
+    test_image(t, pixels)
+    t.end()
+  })
+})
+
+test("get-pixels-jpg", function(t) {
+  //FIXME: This fails because JPEG is a lossy format
+  getPixels(path.join(__dirname, "test_pattern.jpg"), function(err, pixels) {
+    if(err) {
+      t.error(err, "failed to parse jpg")
+      t.end()
+      return
+    }
+    test_image(t, pixels)
+    t.end()
+  })
+})
+
+test("get-pixels-gif", function(t) {
+  getPixels(path.join(__dirname, "test_pattern.gif"), function(err, pixels) {
+    console.log(pixels)
+    if(err) {
+      t.error(err, "failed to parse gif")
+      t.end()
+      return
+    }
     test_image(t, pixels)
     t.end()
   })
