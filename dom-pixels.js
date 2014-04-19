@@ -3,6 +3,9 @@
 var path = require("path")
 var ndarray = require("ndarray")
 var GifReader = require("omggif").GifReader
+var ppm = require("ppm")
+var pack = require("ndarray-pack")
+var through = require("through")
 
 function defaultImage(url, cb) {
   var img = new Image()
@@ -73,11 +76,44 @@ function handleGIF(url, cb) {
   xhr.send()
 }
 
+//PPM loading
+function handlePPM(url, cb) {
+  var xhr = new XMLHttpRequest()
+  xhr.responseType = "arraybuffer"
+  xhr.overrideMimeType("application/binary")
+  xhr.onerror = function(err) {
+    cb(err)
+  }
+  xhr.onload = function() {
+    if(xhr.readyState !== 4) {
+      return
+    }
+    var fakeStream = through()
+    ppm.parse(fakeStream, function(err, pixels) {
+      if(err) {
+        cb(err)
+        return
+      }
+      var nshape = [ pixels.length, pixels[0].length, pixels[0][0].length ]
+      var data = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
+      var result = ndarray(data, nshape)
+      pack(pixels, result)
+      cb(undefined, result)
+    })
+    fakeStream.end(new Uint8Array(xhr.response))
+  }
+  xhr.open("GET", url, true)
+  xhr.send()
+}
+
 module.exports = function getPixels(url, cb) {
   var ext = path.extname(url)
   switch(ext.toUpperCase()) {
     case ".GIF":
       handleGIF(url, cb)
+    break
+    case ".PPM":
+      handlePPM(url, cb)
     break
     default:
       defaultImage(url, cb)

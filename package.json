@@ -17,7 +17,8 @@
     "through": "^2.3.4"
   },
   "devDependencies": {
-    "tape": "^2.12.3"
+    "tape": "^2.12.3",
+    "browserify": "^3.44.0"
   },
   "scripts": {
     "test": "tap test/*.js",
