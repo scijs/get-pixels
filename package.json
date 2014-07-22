@@ -14,7 +14,8 @@
     "jpeg-js": "0.0.3",
     "omggif": "^1.0.5",
     "node-bitmap": "0.0.1",
-    "through": "^2.3.4"
+    "through": "^2.3.4",
+    "request": "*"
   },
   "devDependencies": {
     "tape": "^2.12.3",
@@ -50,8 +51,20 @@
     "browserify"
   ],
   "browser": "dom-pixels.js",
-  "author": "Mikola Lysenko",
+  "author": {
+    "name": "Mikola Lysenko"
+  },
   "license": "MIT",
   "readmeFilename": "README.md",
-  "gitHead": "380bbda330666e4a4066c48ef5a42770d13bcd5c"
+  "gitHead": "380bbda330666e4a4066c48ef5a42770d13bcd5c",
+  "readme": "get-pixels\n==========\nGiven a URL/path, grab all the pixels in an image and return the result as an [ndarray](https://github.com/mikolalysenko/ndarray).  Written in 100% JavaScript, works both in browserify and in node.js and has no external native dependencies.\n\nCurrently the following file formats are supported:\n\n* `PNG`\n* `PPM`\n* `JPEG`\n* `GIF`\n\nExample\n=======\n\n```javascript\nvar getPixels = require(\"get-pixels\")\n\ngetPixels(\"lena.png\", function(err, pixels) {\n  if(err) {\n    console.log(\"Bad image path\")\n    return\n  }\n  console.log(\"got pixels\", pixels.shape.slice())\n})\n```\n\nInstall\n=======\n\n    npm install get-pixels\n\n### `require(\"get-pixels\")(url, cb(err, pixels))`\nReads all the pixels from url into an ndarray.\n\n* `url` is the path to the file\n* `cb(err, pixels)` is a callback which gets triggered once the image is loaded.\n\n**Returns** An ndarray of pixels in raster order having shape equal to `[rows, columns, channels]`.\n\n**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, height, width, 4]`, where each frame is a slice of the final array.\n\nCredits\n=======\n(c) 2013 Mikola Lysenko. MIT License",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/get-pixels/issues"
+  },
+  "_id": "get-pixels@1.1.0",
+  "dist": {
+    "shasum": "925ea081d42465bf8a3a94eba4115a432e98b756"
+  },
+  "_from": "get-pixels@1.x.x",
+  "_resolved": "https://registry.npmjs.org/get-pixels/-/get-pixels-1.1.0.tgz"
 }
