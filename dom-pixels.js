@@ -44,12 +44,12 @@ function handleGIF(url, cb) {
       cb(err)
       return
     }
-    if(reader.numFrames > 0) {
-      var nshape = [reader.numFrames, reader.height, reader.width, 4]
+    if(reader.numFrames() > 0) {
+      var nshape = [reader.numFrames(), reader.height, reader.width, 4]
       var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
       var result = ndarray(ndata, nshape)
       try {
-        for(var i=0; i<reader.numFrames; ++i) {
+        for(var i=0; i<reader.numFrames(); ++i) {
           reader.decodeAndBlitFrameRGBA(i, ndata.subarray(
             result.index(i, 0, 0, 0),
             result.index(i+1, 0, 0, 0)))
@@ -116,6 +116,10 @@ module.exports = function getPixels(url, cb) {
       handlePPM(url, cb)
     break
     default:
-      defaultImage(url, cb)
+      if(url.indexOf('data:image/gif;') === 0) {
+        handleGIF(url, cb)
+      } else {
+        defaultImage(url, cb)
+      }
   }
 }
