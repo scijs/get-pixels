@@ -96,7 +96,7 @@ test("get-pixels-gif", function(t) {
       t.end()
       return
     }
-    test_image(t, pixels)
+    test_image(t, pixels.pick(0))
     t.end()
   })
 })
