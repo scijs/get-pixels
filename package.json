@@ -14,7 +14,8 @@
     "jpeg-js": "0.0.3",
     "omggif": "^1.0.5",
     "node-bitmap": "0.0.1",
-    "through": "^2.3.4"
+    "through": "^2.3.4",
+    "request": "*"
   },
   "devDependencies": {
     "tape": "^2.12.3",

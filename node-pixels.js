@@ -9,24 +9,19 @@ var pack = require("ndarray-pack")
 var GifReader = require("omggif").GifReader
 var Bitmap = require("node-bitmap")
 var fs = require("fs")
+var request = require("request")
 
-function handlePNG(url, cb) {
-  fs.readFile(url, function(err, data) {
-    if(err) {
-      cb(err)
-      return
-    }
+function handlePNG(data, cb) {
     pngparse.parse(data, function(err, img_data) {
       if(err) {
         cb(err)
         return
       }
-      cb(undefined, ndarray(new Uint8Array(img_data.data),
+      cb(null, ndarray(new Uint8Array(img_data.data),
         [img_data.height|0, img_data.width|0, 4],
         [4*img_data.width|0, 4, 1],
         0))
     })
-  })
 }
 
 function handlePPM(url, cb) {
@@ -39,16 +34,11 @@ function handlePPM(url, cb) {
     var data = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
     var result = ndarray(data, nshape)
     pack(pixels, result)
-    cb(undefined, result)
+    cb(null, result)
   })
 }
 
-function handleJPEG(url, cb) {
-  fs.readFile(url, function(err, data) {
-    if(err) {
-      cb(err)
-      return
-    }
+function handleJPEG(data, cb) {
     var jpegData
     try {
       jpegData = jpeg.decode(data)
@@ -63,16 +53,10 @@ function handleJPEG(url, cb) {
     }
     var nshape = [ jpegData.height, jpegData.width, 4 ]
     var result = ndarray(jpegData.data, nshape)
-    cb(undefined, result)
-  })
+    cb(null, result)
 }
 
-function handleGIF(url, cb) {
-  fs.readFile(url, function(err, data) {
-    if(err) {
-      cb(err)
-      return
-    }
+function handleGIF(data, cb) {
     var reader
     try {
       reader = new GifReader(data)
@@ -94,7 +78,7 @@ function handleGIF(url, cb) {
         cb(err)
         return
       }
-      cb(undefined, result)
+      cb(null, result)
     } else {
       var nshape = [reader.height, reader.width, 4]
       var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
@@ -105,17 +89,11 @@ function handleGIF(url, cb) {
         cb(err)
         return
       }
-      cb(undefined, result)
+      cb(null, result)
     }
-  })
 }
 
-function handleBMP(url, cb) {
-  fs.readFile(url, function(err, data) {
-    if(err) {
-      cb(err)
-      return
-    }
+function handleBMP(data, cb) {
     var bmp = new Bitmap(data)
     try {
       bmp.init()
@@ -128,38 +106,77 @@ function handleBMP(url, cb) {
     var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
     var result = ndarray(ndata, nshape)
     pack(bmpData, result)
-    cb(undefined, result)
-  })
+    cb(null, result)
 }
 
+function readData(url, cb) {
+  if (url.substring(0,4) == "http") {
+    var options = {
+      method: 'GET',
+      url: url,
+      encoding: null
+    };
+
+    request(options, function(error, response, body) {
+      if (error) {
+        cb(error);
+        return;
+      }
+      cb(null, body);
+    })
+  } else {
+    //local file
+    fs.readFile(url, function(err, data) {
+      if(err) {
+        cb(err);
+        return;
+      }
+       cb(null, data);
+    })
+  }
+
+}
+
+
+
 module.exports = function getPixels(url, cb) {
+  readData(url, function(err, data) {
+    if (err) {
+      cb(err)
+      return
+    }
+
   var ext = path.extname(url)
   switch(ext.toUpperCase()) {
     case ".PNG":
-      handlePNG(url, cb)
+      handlePNG(data, cb)
     break
-    
+
     case ".PPM":
-      handlePPM(url, cb)
+      handlePPM(url, cb) //TODO
     break
 
     case ".JPE":
     case ".JPG":
     case ".JPEG":
-      handleJPEG(url, cb)
+      handleJPEG(data, cb)
     break
 
     case ".GIF":
-      handleGIF(url, cb)
+      handleGIF(data, cb)
     break
 
     case ".BMP":
-      handleBMP(url, cb)
+      handleBMP(data, cb)
     break
-    
+
     default:
       process.nextTick(function() {
         cb(new Error("Unsupported file type: " + ext))
       })
   }
+
+  })
+
+
 }
