@@ -5,7 +5,6 @@ Given a URL/path, grab all the pixels in an image and return the result as an [n
 Currently the following file formats are supported:
 
 * `PNG`
-* `PPM`
 * `JPEG`
 * `GIF`
 
@@ -29,10 +28,11 @@ Install
 
     npm install get-pixels
 
-### `require("get-pixels")(url, cb(err, pixels))`
+### `require("get-pixels")(url[, type], cb(err, pixels))`
 Reads all the pixels from url into an ndarray.
 
-* `url` is the path to the file
+* `url` is the path to the file.  It can be a relative path, an http url, or a data url
+* `type` is an optional mime type for the image
 * `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
 
 **Returns** An ndarray of pixels in raster order having shape equal to `[rows, columns, channels]`.
@@ -41,4 +41,4 @@ Reads all the pixels from url into an ndarray.
 
 Credits
 =======
-(c) 2013 Mikola Lysenko. MIT License
+(c) 2013-2014 Mikola Lysenko. MIT License
