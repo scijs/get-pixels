@@ -82,12 +82,16 @@ function httpGif(url, cb) {
 }
 
 function copyBuffer(buffer) {
-  var n = buffer.length
-  var result = new Uint8Array(n)
-  for(var i=0; i<n; ++i) {
-    result[i] = buffer.get(i)
+  if(buffer[0] === undefined) {
+    var n = buffer.length
+    var result = new Uint8Array(n)
+    for(var i=0; i<n; ++i) {
+      result[i] = buffer.get(i)
+    }
+    return result
+  } else {
+    return new Uint8Array(buffer)
   }
-  return result
 }
 
 function dataGif(url, cb) {
@@ -111,7 +115,7 @@ module.exports = function getPixels(url, type, cb) {
     type = ''
   }
   var ext = path.extname(url)
-  switch(ext.toUpperCase()) {
+  switch(type || ext.toUpperCase()) {
     case '.GIF':
       httpGif(url, cb)
     break
