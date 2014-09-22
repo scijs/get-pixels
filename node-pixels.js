@@ -19,8 +19,8 @@ function handlePNG(data, cb) {
       return
     }
     cb(null, ndarray(new Uint8Array(img_data.data),
-      [img_data.height|0, img_data.width|0, 4],
-      [4*img_data.width|0, 4, 1],
+      [img_data.width|0, img_data.height|0, 4],
+      [4, 4*img_data.width|0, 1],
       0))
   })
 }
@@ -40,7 +40,7 @@ function handleJPEG(data, cb) {
   }
   var nshape = [ jpegData.height, jpegData.width, 4 ]
   var result = ndarray(jpegData.data, nshape)
-  cb(null, result)
+  cb(null, result.transpose(1,0))
 }
 
 function handleGIF(data, cb) {
@@ -65,7 +65,7 @@ function handleGIF(data, cb) {
       cb(err)
       return
     }
-    cb(null, result)
+    cb(null, result.transpose(0,2,1))
   } else {
     var nshape = [reader.height, reader.width, 4]
     var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
@@ -76,7 +76,7 @@ function handleGIF(data, cb) {
       cb(err)
       return
     }
-    cb(null, result)
+    cb(null, result.transpose(1,0))
   }
 }
 
@@ -93,7 +93,7 @@ function handleBMP(data, cb) {
   var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
   var result = ndarray(ndata, nshape)
   pack(bmpData, result)
-  cb(null, result)
+  cb(null, result.transpose(1,0))
 }
 
 

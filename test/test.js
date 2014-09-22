@@ -7,7 +7,6 @@ var getPixels = typeof window === "undefined" ?
   require("../dom-pixels.js")
 
 function test_image(t, img) {
-  img = img.transpose(1, 0, 2)
   t.equals(img.shape[0], 16)
   t.equals(img.shape[1], 8)
   t.equals(img.get(0, 0, 0), 0)

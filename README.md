@@ -35,9 +35,9 @@ Reads all the pixels from url into an ndarray.
 * `type` is an optional mime type for the image
 * `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
 
-**Returns** An ndarray of pixels in raster order having shape equal to `[rows, columns, channels]`.
+**Returns** An ndarray of pixels in raster order having shape equal to `[width, height, channels]`.
 
-**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, height, width, 4]`, where each frame is a slice of the final array.
+**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, width, height, 4]`, where each frame is a slice of the final array.
 
 Credits
 =======
