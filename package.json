@@ -27,7 +27,7 @@
   },
   "scripts": {
     "test": "tap test/*.js",
-    "test-browser": "beefy --open --cwd test test.js -- -t brfs"
+    "test-browser": "beefy test/test.js --open  -- -t brfs"
   },
   "repository": {
     "type": "git",
