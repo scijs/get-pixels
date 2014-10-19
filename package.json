@@ -21,12 +21,13 @@
   },
   "devDependencies": {
     "tape": "^2.12.3",
+    "brfs": "^1.2.0",
     "browserify": "^3.44.0",
     "beefy": "^1.1.0"
   },
   "scripts": {
     "test": "tap test/*.js",
-    "test-browser": "beefy --open --cwd test test.js"
+    "test-browser": "beefy --open --cwd test test.js -- -t brfs"
   },
   "repository": {
     "type": "git",

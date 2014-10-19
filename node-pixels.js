@@ -125,7 +125,13 @@ module.exports = function getPixels(url, type, cb) {
     cb = type
     type = ''
   }
-  if(url.indexOf('data:') === 0) {
+  if(Buffer.isBuffer(url)) {
+    if(!type) {
+      cb(new Error('Invalid file type'))
+      return
+    }
+    doParse(type, url, cb)
+  } else if(url.indexOf('data:') === 0) {
     try {
       var buffer = parseDataURI(url)
       if(buffer) {

@@ -1,6 +1,7 @@
 "use strict"
 var test = require("tape")
 
+var fs   = require("fs")
 var path = require("path")
 var getPixels = typeof window === "undefined" ?
   require("../node-pixels.js") :
@@ -127,5 +128,24 @@ test("data url", function(t) {
     }
     t.ok(true, 'data url opened without crashing')
     t.end()
+  })
+})
+
+test("get-pixels-buffer", function(t) {
+  fs.readFile(__dirname + "/test_pattern.png", function(err, buffer) {
+    if(err) {
+      t.error(err, "failed to read file")
+      t.end()
+      return
+    }
+    getPixels(buffer, "image/png", function(err, pixels) {
+      if(err) {
+        t.error(err, "failed to parse buffer")
+        t.end()
+        return
+      }
+      test_image(t, pixels)
+      t.end()
+    })
   })
 })
