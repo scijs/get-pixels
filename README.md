@@ -31,8 +31,8 @@ Install
 ### `require("get-pixels")(url[, type], cb(err, pixels))`
 Reads all the pixels from url into an ndarray.
 
-* `url` is the path to the file.  It can be a relative path, an http url, a data url, or an [in-memory Buffer](http://nodejs.org/api/buffer.html) (type is required for Buffers).
-* `type` is an optional mime type for the image
+* `url` is the path to the file.  It can be a relative path, an http url, a data url, or an [in-memory Buffer](http://nodejs.org/api/buffer.html).
+* `type` is an optional mime type for the image (required when using a Buffer)
 * `cb(err, pixels)` is a callback which gets triggered once the image is loaded.
 
 **Returns** An ndarray of pixels in raster order having shape equal to `[width, height, channels]`.
