@@ -10,7 +10,7 @@
     "ndarray": "^1.0.13",
     "pngparse": "^1.1.4",
     "ndarray-pack": "^1.1.1",
-    "jpeg-js": "0.0.3",
+    "jpeg-js": "^0.1.1",
     "omggif": "^1.0.5",
     "node-bitmap": "0.0.1",
     "through": "^2.3.4",
