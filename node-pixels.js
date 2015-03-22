@@ -148,7 +148,7 @@ module.exports = function getPixels(url, type, cb) {
         cb(err)
       })
     }
-  } else if(url.indexOf('http://') === 0) {
+  } else if(url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
     request(url, function(err, response, body) {
       if(err) {
         cb(err)
