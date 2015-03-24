@@ -149,12 +149,20 @@ module.exports = function getPixels(url, type, cb) {
       })
     }
   } else if(url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
-    request(url, function(err, response, body) {
+    request({url:url, encoding:null}, function(err, response, body) {
       if(err) {
         cb(err)
         return
       }
-      type = type || response.getHeader('content-type')
+      
+      type = type;
+      if(!type){
+        if(response.getHeader !== undefined){
+	  type = response.getHeader('content-type');
+	}else if(response.headers !== undefined){
+	  type = response.headers['content-type'];
+	}
+      }
       if(!type) {
         cb(new Error('Invalid content-type'))
         return

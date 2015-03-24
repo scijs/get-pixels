@@ -129,3 +129,45 @@ test("get-pixels-buffer", function(t) {
     t.end()
   })
 })
+
+test("get-url png img", function(t) {
+  var url = "https://raw.githubusercontent.com/scijs/get-pixels/master/test/test_pattern.png";
+  getPixels(url, function(err, pixels){
+    if(err) {
+      console.log("Error:", err);
+      t.error(err, "failed to read web image data");
+      t.end();
+      return;
+    }
+    test_image(t, pixels);
+    t.end();
+  });
+});
+
+test("get-url jpg img", function(t) {
+  var url = "https://raw.githubusercontent.com/scijs/get-pixels/master/test/test_pattern.jpg";
+  getPixels(url, function(err, pixels){
+    if(err) {
+      console.log("Error:", err);
+      t.error(err, "failed to read web image data");
+      t.end();
+      return;
+    }
+    test_image(t, pixels);
+    t.end();
+  });
+});
+
+test("get-url gif img", function(t) {
+  var url = "https://raw.githubusercontent.com/scijs/get-pixels/master/test/test_pattern.gif";
+  getPixels(url, function(err, pixels){
+    if(err) {
+      console.log("Error:", err);
+      t.error(err, "failed to read web image data");
+      t.end();
+      return;
+    }
+    test_image(t, pixels.pick(0));
+    t.end();
+  });
+});
