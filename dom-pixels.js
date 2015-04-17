@@ -9,6 +9,7 @@ var parseDataURI  = require('data-uri-to-buffer')
 
 function defaultImage(url, cb) {
   var img = new Image()
+  img.crossOrigin = "Anonymous"
   img.onload = function() {
     var canvas = document.createElement('canvas')
     canvas.width = img.width
