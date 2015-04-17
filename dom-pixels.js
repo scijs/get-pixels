@@ -64,8 +64,11 @@ function handleGif(data, cb) {
 
 function httpGif(url, cb) {
   var xhr          = new XMLHttpRequest()
+  xhr.open('GET', url, true)
   xhr.responseType = 'arraybuffer'
-  xhr.overrideMimeType('application/binary')
+  if(xhr.overrideMimeType){
+    xhr.overrideMimeType('application/binary')
+  }
   xhr.onerror = function(err) {
     cb(err)
   }
@@ -77,7 +80,6 @@ function httpGif(url, cb) {
     handleGif(data, cb)
     return
   }
-  xhr.open('GET', url, true)
   xhr.send()
 }
 
