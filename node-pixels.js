@@ -2,7 +2,7 @@
 
 var ndarray       = require('ndarray')
 var path          = require('path')
-var pngparse      = require('pngparse')
+var PNG           = require('pngjs2').PNG
 var jpeg          = require('jpeg-js')
 var pack          = require('ndarray-pack')
 var GifReader     = require('omggif').GifReader
@@ -13,7 +13,8 @@ var mime          = require('mime-types')
 var parseDataURI  = require('parse-data-uri')
 
 function handlePNG(data, cb) {
-  pngparse.parse(data, function(err, img_data) {
+  var png = new PNG();
+  png.parse(data, function(err, img_data) {
     if(err) {
       cb(err)
       return
@@ -102,7 +103,7 @@ function doParse(mimeType, data, cb) {
     case 'image/png':
       handlePNG(data, cb)
     break
-    
+
     case 'image/jpeg':
       handleJPEG(data, cb)
     break
@@ -114,7 +115,7 @@ function doParse(mimeType, data, cb) {
     case 'image/bmp':
       handleBMP(data, cb)
     break
-    
+
     default:
       cb(new Error("Unsupported file type: " + mimeType))
   }
@@ -154,7 +155,7 @@ module.exports = function getPixels(url, type, cb) {
         cb(err)
         return
       }
-      
+
       type = type;
       if(!type){
         if(response.getHeader !== undefined){
