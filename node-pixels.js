@@ -2,7 +2,7 @@
 
 var ndarray       = require('ndarray')
 var path          = require('path')
-var PNG           = require('pngjs2').PNG
+var PNG           = require('pngjs').PNG
 var jpeg          = require('jpeg-js')
 var pack          = require('ndarray-pack')
 var GifReader     = require('omggif').GifReader
