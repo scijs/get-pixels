@@ -104,6 +104,7 @@ function doParse(mimeType, data, cb) {
       handlePNG(data, cb)
     break
 
+    case 'image/jpg':
     case 'image/jpeg':
       handleJPEG(data, cb)
     break
