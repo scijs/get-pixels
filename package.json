@@ -20,10 +20,10 @@
     "data-uri-to-buffer": "0.0.3"
   },
   "devDependencies": {
-    "tape": "^2.12.3",
+    "beefy": "^2.1.8",
     "brfs": "^1.2.0",
     "browserify": "^3.44.0",
-    "beefy": "^1.1.0"
+    "tape": "^2.12.3"
   },
   "scripts": {
     "test": "tap test/*.js",
