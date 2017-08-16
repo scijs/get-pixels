@@ -8,7 +8,7 @@ var pack          = require('ndarray-pack')
 var GifReader     = require('omggif').GifReader
 var Bitmap        = require('node-bitmap')
 var fs            = require('fs')
-var request       = require('request')
+var phin          = require('phin')
 var mime          = require('mime-types')
 var parseDataURI  = require('parse-data-uri')
 
@@ -151,11 +151,13 @@ module.exports = function getPixels(url, type, cb) {
       })
     }
   } else if(url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
-    request({url:url, encoding:null}, function(err, response, body) {
+    phin({url:url}, function(err, response) {
       if(err) {
         cb(err)
         return
       }
+
+      var body = response.body;
 
       type = type;
       if(!type){
