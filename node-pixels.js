@@ -54,7 +54,12 @@ function handleGIF(data, cb) {
   }
   if(reader.numFrames() > 0) {
     var nshape = [reader.numFrames(), reader.height, reader.width, 4]
-    var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
+    try  {
+      var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
+    } catch(err) {
+      cb(err)
+      return
+    }
     var result = ndarray(ndata, nshape)
     try {
       for(var i=0; i<reader.numFrames(); ++i) {
