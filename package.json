@@ -15,7 +15,7 @@
     "node-bitmap": "0.0.1",
     "omggif": "^1.0.5",
     "parse-data-uri": "^0.2.0",
-    "pngjs": "^2.0.0",
+    "pngjs": "^3.3.3",
     "request": "^2.44.0",
     "through": "^2.3.4"
   },
