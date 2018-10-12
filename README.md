@@ -36,6 +36,9 @@ Reads all the pixels from url into an ndarray.
 * `cb(err, pixels, framesInfo)` is a callback which gets triggered once the image is loaded.
 
 **Returns** An ndarray of pixels in raster order having shape equal to `[width, height, channels]` and **frameInfo** param if available (for animated GIFs).
+
+**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, width, height, 4]`, where each frame is a slice of the final array.
+
 **frameInfo** is an Array of Objects with these fields:
 
 Name|Type|Description
@@ -56,7 +59,6 @@ disposal | Integer | Disposal method
 
 See GIF spec for details. Summary http://www.onicos.com/staff/iz/formats/gif.html
 
-**Note** For animated GIFs, a 4D array is returned with shape `[numFrames, width, height, 4]`, where each frame is a slice of the final array.
 
 Credits
 =======
