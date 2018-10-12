@@ -35,7 +35,7 @@ function handleGif(data, cb) {
     return
   }
   if(reader.numFrames() > 0) {
-    var framesInfo = [];
+    var framesInfo = []
     var nshape = [reader.numFrames(), reader.height, reader.width, 4]
     var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
     var result = ndarray(ndata, nshape)
@@ -50,7 +50,7 @@ function handleGif(data, cb) {
       cb(err)
       return
     }
-    cb(null, result.transpose(0,2,1), framesInfo);
+    cb(null, result.transpose(0,2,1), framesInfo)
   } else {
     var nshape = [reader.height, reader.width, 4]
     var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
