@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "data-uri-to-buffer": "0.0.3",
+    "got": "^11.8.2",
     "jpeg-js": "^0.4.1",
     "mime-types": "^2.0.1",
     "ndarray": "^1.0.13",
@@ -16,7 +17,6 @@
     "omggif": "^1.0.5",
     "parse-data-uri": "^0.2.0",
     "pngjs": "^3.3.3",
-    "request": "^2.44.0",
     "through": "^2.3.4"
   },
   "devDependencies": {
