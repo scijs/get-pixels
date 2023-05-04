@@ -48,6 +48,5 @@
   "browser": "dom-pixels.js",
   "author": "Mikola Lysenko",
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "gitHead": "380bbda330666e4a4066c48ef5a42770d13bcd5c"
+  "readmeFilename": "README.md"
 }
