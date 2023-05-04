@@ -2,9 +2,7 @@
 
 var path          = require('path')
 var ndarray       = require('ndarray')
-var GifReader     = require('omggif').GifReader
-var pack          = require('ndarray-pack')
-var through       = require('through')
+var GifReader = require("omggif").GifReader;
 var parseDataURI  = require('data-uri-to-buffer')
 
 function defaultImage(url, cb) {

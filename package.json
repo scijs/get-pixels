@@ -1,38 +1,29 @@
 {
-  "name": "get-pixels",
-  "version": "3.3.3",
+  "name": "get-pixels-graphite",
+  "version": "4.0.0",
   "description": "Reads the pixels of an image as an ndarray",
-  "main": "node-pixels.js",
+  "main": "dom-pixels.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
     "data-uri-to-buffer": "0.0.3",
-    "jpeg-js": "^0.4.1",
-    "mime-types": "^2.0.1",
     "ndarray": "^1.0.13",
-    "ndarray-pack": "^1.1.1",
-    "node-bitmap": "0.0.1",
     "omggif": "^1.0.5",
-    "parse-data-uri": "^0.2.0",
-    "pngjs": "^3.3.3",
-    "request": "^2.44.0",
-    "through": "^2.3.4"
+    "parse-data-uri": "^0.2.0"
   },
   "devDependencies": {
     "beefy": "^2.1.8",
     "brfs": "^1.2.0",
     "browserify": "^3.44.0",
-    "tap": "^10.7.0",
     "tape": "^2.12.3"
   },
   "scripts": {
-    "test": "tap test/*.js",
-    "test-browser": "beefy test/test.js --open  -- -t brfs"
+    "test": "beefy test/test.js --open  -- -t brfs"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/scijs/get-pixels.git"
+    "url": "git://github.com/ibm-maximo-dev/get-pixels.git"
   },
   "keywords": [
     "ndarray",
