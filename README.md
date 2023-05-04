@@ -8,6 +8,7 @@ Currently the following file formats are supported:
 * `JPEG`
 * `GIF`
 
+
 Example
 =======
 
