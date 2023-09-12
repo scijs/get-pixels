@@ -17,7 +17,6 @@
     "omggif": "^1.0.5",
     "parse-data-uri": "^0.2.0",
     "pngjs": "^3.3.3",
-    "request": "^2.44.0",
     "through": "^2.3.4"
   },
   "devDependencies": {
@@ -58,6 +57,8 @@
   "browser": "dom-pixels.js",
   "author": "Mikola Lysenko",
   "license": "MIT",
-  "readmeFilename": "README.md",
-  "gitHead": "380bbda330666e4a4066c48ef5a42770d13bcd5c"
+  "bugs": {
+    "url": "https://github.com/scijs/get-pixels/issues"
+  },
+  "homepage": "https://github.com/scijs/get-pixels#readme"
 }
