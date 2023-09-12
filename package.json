@@ -13,6 +13,7 @@
     "ndarray": "^1.0.13",
     "ndarray-pack": "^1.1.1",
     "node-bitmap": "0.0.1",
+    "node-fetch": "^3.3.2",
     "omggif": "^1.0.5",
     "parse-data-uri": "^0.2.0",
     "pngjs": "^3.3.3",
