@@ -8,7 +8,6 @@ var pack = require("ndarray-pack");
 var GifReader = require("omggif").GifReader;
 var Bitmap = require("node-bitmap");
 var fs = require("fs");
-var fetch = require("node-fetch");
 var mime = require("mime-types");
 var parseDataURI = require("parse-data-uri");
 
@@ -163,13 +162,15 @@ module.exports = function getPixels(url, type, cb) {
       });
     }
   } else if (url.startsWith("http://") || url.startsWith("https://")) {
-    fetch(url)
+    let contentType;
+    import("node-fetch")
+      .then((fetchModule) => fetchModule.default(url))
       .then((response) => {
         if (!response.ok) {
           throw new Error("HTTP request failed");
         }
 
-        const contentType = response.headers.get("content-type");
+        contentType = response.headers.get("content-type");
         if (!contentType) {
           throw new Error("Invalid content-type");
         }
