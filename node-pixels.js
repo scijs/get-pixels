@@ -8,7 +8,6 @@ var pack          = require('ndarray-pack')
 var GifReader     = require('omggif').GifReader
 var Bitmap        = require('node-bitmap')
 var fs            = require('fs')
-var request       = require('request')
 var mime          = require('mime-types')
 var parseDataURI  = require('parse-data-uri')
 
@@ -115,7 +114,7 @@ function doParse(mimeType, data, cb) {
     break
 
     case 'image/gif':
-      handleGIF(data, cb)
+      handleGIF(new Uint8Array(data), cb)
     break
 
     case 'image/bmp':
@@ -156,26 +155,21 @@ module.exports = function getPixels(url, type, cb) {
       })
     }
   } else if(url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
-    request({url:url, encoding:null}, function(err, response, body) {
-      if(err) {
-        cb(err)
-        return
+    let contentType;
+    fetch(url).then(response => {
+      if(!response.ok) {
+        throw new Error("HTTP request failed")
       }
-
-      type = type;
-      if(!type){
-        if(response.getHeader !== undefined){
-	  type = response.getHeader('content-type');
-	}else if(response.headers !== undefined){
-	  type = response.headers['content-type'];
-	}
+      
+      contentType = response.headers.get("content-type")
+      if(!contentType) {
+        throw new Error("Invalid content-type")
       }
-      if(!type) {
-        cb(new Error('Invalid content-type'))
-        return
-      }
-      doParse(type, body, cb)
-    })
+      
+      return response.arrayBuffer()
+    }).then(body => {
+      doParse(contentType, body, cb)
+    }).catch(err => { cb(err) })
   } else {
     fs.readFile(url, function(err, data) {
       if(err) {
