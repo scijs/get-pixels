@@ -52,6 +52,7 @@ function handleGIF(data, cb) {
     return
   }
   if(reader.numFrames() > 0) {
+    var framesInfo = []
     var nshape = [reader.numFrames(), reader.height, reader.width, 4]
     try  {
       var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
@@ -64,13 +65,14 @@ function handleGIF(data, cb) {
       for(var i=0; i<reader.numFrames(); ++i) {
         reader.decodeAndBlitFrameRGBA(i, ndata.subarray(
           result.index(i, 0, 0, 0),
-          result.index(i+1, 0, 0, 0)))
+          result.index(i+1, 0, 0, 0)));
+        framesInfo.push(reader.frameInfo(i));
       }
     } catch(err) {
       cb(err)
       return
     }
-    cb(null, result.transpose(0,2,1))
+    cb(null, result.transpose(0,2,1), framesInfo)
   } else {
     var nshape = [reader.height, reader.width, 4]
     var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2])
