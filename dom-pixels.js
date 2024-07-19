@@ -36,9 +36,9 @@ function handleGif(data, cb) {
   }
   if(reader.numFrames() > 0) {
     var nshape = [reader.numFrames(), reader.height, reader.width, 4]
-    var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
-    var result = ndarray(ndata, nshape)
     try {
+      var ndata = new Uint8Array(nshape[0] * nshape[1] * nshape[2] * nshape[3])
+      var result = ndarray(ndata, nshape)
       for(var i=0; i<reader.numFrames(); ++i) {
         reader.decodeAndBlitFrameRGBA(i, ndata.subarray(
           result.index(i, 0, 0, 0),
@@ -117,8 +117,7 @@ module.exports = function getPixels(url, type, cb) {
     cb = type
     type = ''
   }
-  var ext = path.extname(url)
-  switch(type || ext.toUpperCase()) {
+  switch(type || path.extname(url).toUpperCase()) {
     case '.GIF':
       httpGif(url, cb)
     break
