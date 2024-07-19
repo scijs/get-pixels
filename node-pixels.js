@@ -10,6 +10,7 @@ var Bitmap        = require('node-bitmap')
 var fs            = require('fs')
 var mime          = require('mime-types')
 var parseDataURI  = require('parse-data-uri')
+var imageType     = require('image-type');
 
 function handlePNG(data, cb) {
   var png = new PNG();
@@ -122,7 +123,33 @@ function doParse(mimeType, data, cb) {
     break
 
     default:
-      cb(new Error("Unsupported file type: " + mimeType))
+      var type = imageType(data);
+      if (type && type.mime) {
+        switch(type.mime) {
+          case 'image/png':
+            handlePNG(data, cb)
+            break
+
+          case 'image/jpg':
+          case 'image/jpeg':
+            handleJPEG(data, cb)
+            break
+
+          case 'image/gif':
+            handleGIF(data, cb)
+            break
+
+          case 'image/bmp':
+            handleBMP(data, cb)
+            break
+
+          default:
+            cb(new Error("Unsupported file type: " + mimeType))
+            break;
+        }
+      } else {
+        cb(new Error("Unsupported file type: " + mimeType))
+      }
   }
 }
 
